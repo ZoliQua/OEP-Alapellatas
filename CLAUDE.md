@@ -22,9 +22,10 @@ Full plan: `docs/PLAN.md` (Hungarian). Read it before non-trivial work.
 
 ## Project phase
 
-**MVP = dental only (fogorvosi alapellátás).** GP (háziorvosi) comes in v1.
-Design every pipeline component as dual-cassette (`kind: 'dental' | 'gp'`)
-from day one; only the dental branch is implemented in MVP.
+**MVP (dental) and the v1 GP branch are both implemented.** Every pipeline
+component is dual-cassette (`kind: 'dental' | 'gp'`). Note: NEAK publishes no
+dissolved (megszűnt) list for GP; the GP registry is the source of district
+(járás) names and served-settlement lists.
 
 ## Language conventions
 
