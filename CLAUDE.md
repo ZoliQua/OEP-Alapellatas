@@ -14,8 +14,11 @@ Full plan: `docs/PLAN.md` (Hungarian). Read it before non-trivial work.
 2. **No hallucinated data.** Every number must trace to a source file in
    `data/raw/YYYY-MM/`. If a source is missing or a parser fails validation,
    the pipeline must fail loudly — never publish partial or guessed data.
-3. **Public data only, no personal names.** District, address, status, dates —
-   yes. Physician / substitute names — never, even if present in source PDFs.
+3. **Public data only; names only where NEAK itself publishes them.** The
+   contracted physician's name of a FILLED praxis (from the NEAK public
+   registry) may be shown. Names on vacant/dissolved districts and
+   substitute physicians — never. Vacancy markers (BETÖLTETLEN) are not
+   names. (Policy widened 2026-08 at the owner's request.)
 4. **Betöltetlen ≠ ellátatlan.** Keep "vacant" (no contracted physician) and
    "unserved" (no care available incl. substitution) strictly separate in code,
    data model and UI copy.
