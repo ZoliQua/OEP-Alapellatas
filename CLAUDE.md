@@ -8,7 +8,7 @@ Full plan: `docs/PLAN.md` (Hungarian). Read it before non-trivial work.
 
 ## Non-negotiable rules
 
-1. **Authorship: Dúl Zoltán only.** NEVER add `Co-Authored-By: Claude`,
+1. **Authorship: Dul Zoltán only.** NEVER add `Co-Authored-By: Claude`,
    "Generated with Claude", or any AI attribution to commits, files, docs,
    READMEs, or metadata. No exceptions.
 2. **No hallucinated data.** Every number must trace to a source file in
