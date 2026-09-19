@@ -63,6 +63,7 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
 | E | OKFŐ tartósan betöltetlen körzetek | HTML/PDF | cross-check |
 | F | KSH settlement population | XLS | yearly |
 | G | Settlement/district/county boundaries (OSM/KSH) | GeoJSON | static |
+| H | EESZT törzspublikáció (NEAK_FINSZOLG, EUSZOLG_PUBLIKUS, EUSZOLG_ENGEDELY_PUBLIKUS) | REST JSON | supplement (monthly) |
 
 Source URLs are configured in `etl/sources.py` — update there only.
 NEAK data is "tájékoztató jellegű"; this disclaimer must appear in the UI footer.
