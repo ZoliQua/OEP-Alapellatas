@@ -46,6 +46,10 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
 - Data: versioned JSON snapshots in `data/YYYY-MM/`, `data/latest.json`,
   `data/timeseries.json`. Raw source files archived in `data/raw/YYYY-MM/`
   (git-tracked — the git history IS the audit trail).
+- Supplements (optional, never block a release): `data/eeszt.json` (EESZT
+  match per district) and `data/dental_extra.json` (the dental services that
+  are NOT districts: on-call, university primary care, every Szakellátás
+  service). Both are built from the same EESZT registers.
 - Frontend: React 18 + Vite + TypeScript in `web/`, Zustand for state,
   MapLibre GL JS for the map, D3 for charts. No Tailwind; hand-rolled CSS
   matching the dark holadelej-style theme.
@@ -69,6 +73,12 @@ Source URLs are configured in `etl/sources.py` — update there only.
 NEAK data is "tájékoztató jellegű"; this disclaimer must appear in the UI footer.
 
 ## Key data model
+
+The district denominator is the registry filtered to `Ellátási szint =
+Alapellátás` AND a district service type (Felnőtt/Gyermek/Vegyes/Iskolai) for
+dental, and to `ellátási forma = T` for GP. Everything else the registry lists
+(Ügyelet, Egyetemi alapellátás, Szakellátás) is NOT a district: it never
+enters the vacancy rate and lives in `data/dental_extra.json` instead.
 
 `Praxis.id` = NEAK FIN code (canonical key). Praxis types:
 `adult | child | mixed | school`. Status:
