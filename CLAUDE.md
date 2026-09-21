@@ -47,9 +47,19 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
   `data/timeseries.json`. Raw source files archived in `data/raw/YYYY-MM/`
   (git-tracked — the git history IS the audit trail).
 - Supplements (optional, never block a release): `data/eeszt.json` (EESZT
-  match per district) and `data/dental_extra.json` (the dental services that
+  match per district), `data/dental_extra.json` (the dental services that
   are NOT districts: on-call, university primary care, every Szakellátás
-  service). Both are built from the same EESZT registers.
+  service), `data/vedono.json` (the health-visitor branch, EESZT-only — no
+  vacancy list exists for it anywhere) and `data/specialist.json` (source I).
+- Analyses built on top of the above, each with its own guard:
+  `risk.json` (vacancy risk), `survival.json` (Kaplan–Meier of vacancy
+  spells), `coverage.json` (settlement-level coverage instead of district
+  seats), `composite.json` (the composite care-risk index) and `age.json`
+  (KSH census age composition). `data/geo/settlements.geojson` carries a
+  centre point per settlement.
+- Pages: `index.html` (landing, with the health-visitor view behind its own
+  icon), `elemzo.html` (the four analyses), `eeszt.html` (the EESZT
+  complex), `szakellato.html` (specialist care), `embed.html`.
 - Frontend: React 18 + Vite + TypeScript in `web/`, Zustand for state,
   MapLibre GL JS for the map, D3 for charts. No Tailwind; hand-rolled CSS
   matching the dark holadelej-style theme.
@@ -65,9 +75,11 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
 | C | NEAK szerződött szolgáltatók (registry = denominator) | XLS/PDF | monthly |
 | D | NEAK havi finanszírozási adatok (performance) | XLS | monthly (v1) |
 | E | OKFŐ tartósan betöltetlen körzetek | HTML/PDF | cross-check |
-| F | KSH settlement population | XLS | yearly |
+| F | KSH settlement population (Helységnévtár) | XLS | yearly |
+| F2 | KSH 2022 census age composition (settlement level, CC BY 4.0) | REST JSON | one-off |
 | G | Settlement/district/county boundaries (OSM/KSH) | GeoJSON | static |
 | H | EESZT törzspublikáció (NEAK_FINSZOLG, EUSZOLG_PUBLIKUS, EUSZOLG_ENGEDELY_PUBLIKUS) | REST JSON | supplement (monthly) |
+| I | NEAK fekvő- és járóbeteg-szakellátó intézmények (XLSX only — the outpatient PDF is truncated) | XLSX | monthly |
 
 Source URLs are configured in `etl/sources.py` — update there only.
 NEAK data is "tájékoztató jellegű"; this disclaimer must appear in the UI footer.
