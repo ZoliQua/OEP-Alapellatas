@@ -80,6 +80,8 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
 | G | Settlement/district/county boundaries (OSM/KSH) | GeoJSON | static |
 | H | EESZT törzspublikáció (NEAK_FINSZOLG, EUSZOLG_PUBLIKUS, EUSZOLG_ENGEDELY_PUBLIKUS) | REST JSON | supplement (monthly) |
 | I | NEAK fekvő- és járóbeteg-szakellátó intézmények (XLSX only — the outpatient PDF is truncated) | XLSX | monthly |
+| J | OpenStreetMap Hungary extract (Geofabrik, ODbL) — the drivable road graph | PBF | on demand |
+| K | Volánbusz national GTFS (MÁV Sz. Zrt. via gtfs.kti.hu, CC0) — scheduled buses; MÁV rail is registration-only and therefore absent | ZIP | monthly |
 
 Source URLs are configured in `etl/sources.py` — update there only.
 NEAK data is "tájékoztató jellegű"; this disclaimer must appear in the UI footer.
