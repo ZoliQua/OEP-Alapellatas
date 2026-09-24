@@ -130,4 +130,11 @@ the registry means `dissolved`, never silently dropped or counted as filled.
 - Monthly pipeline: `.github/workflows/monthly-etl.yml` (cron, runs twice
   monthly). On validation failure it opens an issue instead of deploying.
 - Local run: `python etl/run.py --month 2026-08` then `cd web && npm run dev`.
-- Deploy: static build to Cloudflare Pages from `main`.
+- Deploy: **Vercel**, through its GitHub integration — every push to `main`
+  builds `web/` and goes live on https://oep-ellatas.vercel.app in a minute
+  or two. `npm run build` runs `scripts/sync-data.mjs` first, so the JSON in
+  `data/` reaches `web/public/data/` on the build machine (that directory is
+  git-ignored on purpose).
+  `.github/workflows/deploy.yml` still targets Cloudflare Pages and fails on
+  every push for want of its two secrets; it is dead weight unless Cloudflare
+  is actually wanted.
