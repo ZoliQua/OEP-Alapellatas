@@ -50,16 +50,27 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
   match per district), `data/dental_extra.json` (the dental services that
   are NOT districts: on-call, university primary care, every Szakellátás
   service), `data/vedono.json` (the health-visitor branch, EESZT-only — no
-  vacancy list exists for it anywhere) and `data/specialist.json` (source I).
+  vacancy list exists for it anywhere), `data/specialist.json` (source I),
+  `data/emergency.json` (on-call, ambulance, patient transport, dialysis)
+  and `data/gyse.json` (medical-aid retail premises).
 - Analyses built on top of the above, each with its own guard:
   `risk.json` (vacancy risk), `survival.json` (Kaplan–Meier of vacancy
-  spells), `coverage.json` (settlement-level coverage instead of district
-  seats), `composite.json` (the composite care-risk index) and `age.json`
-  (KSH census age composition). `data/geo/settlements.geojson` carries a
+  spells), `workforce.json` (physician turnover and multi-district
+  holdings, pseudonymous), `coverage.json` (settlement-level coverage
+  instead of district seats), `composite.json` (the composite care-risk
+  index), `clusters.json` (contiguous care deserts), `age.json` (KSH census
+  age composition), `traveltime.json` (driving minutes on the OSM road
+  graph), `transit.json` (scheduled bus reach) and `officialmap.json`
+  (NEAK's own FIN → provider link held against our cross-check — a second
+  opinion, never a replacement). `data/geo/settlements.geojson` carries a
   centre point per settlement.
+- Not in git, reproducible from their URL and date: the OSM extract under
+  `data/raw/osm/`, the GTFS zip under `data/raw/gtfs/` and the derived
+  `data/geo/road_graph.npz`.
 - Pages: `index.html` (landing, with the health-visitor view behind its own
-  icon), `elemzo.html` (the four analyses), `eeszt.html` (the EESZT
-  complex), `szakellato.html` (specialist care), `embed.html`.
+  icon and a grouped top nav), `elemzo.html` (the analyses), `eeszt.html`
+  (the EESZT complex), `szakellato.html` (specialist care and medical-aid
+  retailers), `embed.html`.
 - Frontend: React 18 + Vite + TypeScript in `web/`, Zustand for state,
   MapLibre GL JS for the map, D3 for charts. No Tailwind; hand-rolled CSS
   matching the dark holadelej-style theme.
@@ -78,7 +89,7 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
 | F | KSH settlement population (Helységnévtár) | XLS | yearly |
 | F2 | KSH 2022 census age composition (settlement level, CC BY 4.0) | REST JSON | one-off |
 | G | Settlement/district/county boundaries (OSM/KSH) | GeoJSON | static |
-| H | EESZT törzspublikáció (NEAK_FINSZOLG, EUSZOLG_PUBLIKUS, EUSZOLG_ENGEDELY_PUBLIKUS) | REST JSON | supplement (monthly) |
+| H | EESZT törzspublikáció (NEAK_FINSZOLG, EUSZOLG_PUBLIKUS, EUSZOLG_ENGEDELY_PUBLIKUS, NEAK_FINSZOLG_EXT, GYSE_FORGALMAZO) | REST JSON | supplement (monthly) |
 | I | NEAK fekvő- és járóbeteg-szakellátó intézmények (XLSX only — the outpatient PDF is truncated) | XLSX | monthly |
 | J | OpenStreetMap Hungary extract (Geofabrik, ODbL) — the drivable road graph | PBF | on demand |
 | K | Volánbusz national GTFS (MÁV Sz. Zrt. via gtfs.kti.hu, CC0) — scheduled buses; MÁV rail is registration-only and therefore absent | ZIP | monthly |
