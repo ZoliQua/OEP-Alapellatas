@@ -41,7 +41,9 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
 ## Architecture
 
 - **No backend.** Static SPA + monthly batch ETL via GitHub Actions.
-- ETL: Python 3.12 in `etl/` — pdfplumber, pandas, openpyxl.
+- ETL: Python 3.12 in `etl/` — pdfplumber, pandas, openpyxl, numpy, scipy,
+  osmium (the last three carry the road graph; they were missing from
+  requirements for weeks and the routing steps silently never ran in CI).
   Install with `pip install -r etl/requirements.txt`.
 - Data: versioned JSON snapshots in `data/YYYY-MM/`, `data/latest.json`,
   `data/timeseries.json`. Raw source files archived in `data/raw/YYYY-MM/`
@@ -51,8 +53,13 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
   are NOT districts: on-call, university primary care, every Szakellátás
   service), `data/vedono.json` (the health-visitor branch, EESZT-only — no
   vacancy list exists for it anywhere), `data/specialist.json` (source I),
-  `data/emergency.json` (on-call, ambulance, patient transport, dialysis)
-  and `data/gyse.json` (medical-aid retail premises).
+  `data/emergency.json` (on-call, ambulance, patient transport, dialysis),
+  `data/gyse.json` (medical-aid retail premises), `data/pharmacy.json`
+  (contracted pharmacies — the NEAK partner list, never the OGYÉI finder,
+  whose robots.txt and terms forbid it) and `data/referral.json` (NEAK's
+  monthly referral master list: the FIN → institution crosswalk and the
+  entry/exit log that stands in for the dissolved list NEAK does not
+  publish for GP).
 - Analyses built on top of the above, each with its own guard:
   `risk.json` (vacancy risk), `survival.json` (Kaplan–Meier of vacancy
   spells), `workforce.json` (physician turnover and multi-district
@@ -62,11 +69,22 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
   age composition), `traveltime.json` (driving minutes on the OSM road
   graph), `transit.json` (scheduled bus reach) and `officialmap.json`
   (NEAK's own FIN → provider link held against our cross-check — a second
-  opinion, never a replacement). `data/geo/settlements.geojson` carries a
+  opinion, never a replacement), `licence_history.json` (how old the
+  organisational unit behind a district is, from the licence register's
+  dated snapshots — the only register that answers for the past; it cannot
+  say who operated a district before, because a unit belongs to its
+  provider for good) and `settlements.json` + `settlement_slugs.json` (the
+  analyses turned inside out, one profile per settlement, which the build
+  bakes into a static page each). `data/geo/settlements.geojson` carries a
   centre point per settlement.
 - Not in git, reproducible from their URL and date: the OSM extract under
   `data/raw/osm/`, the GTFS zip under `data/raw/gtfs/` and the derived
   `data/geo/road_graph.npz`.
+- Every supplement and analysis is a declared step in `etl/pipeline.py`:
+  steps name what they need, the runner skips those whose input did not
+  rebuild, the outcome lands in `data/pipeline.json`, and
+  `python etl/pipeline.py --check` fails the workflow if anything failed or
+  was skipped. A failure must be loud, never silent.
 - Pages: `index.html` (landing, with the health-visitor view behind its own
   icon and a grouped top nav), `elemzo.html` (the analyses), `eeszt.html`
   (the EESZT complex), `szakellato.html` (specialist care and medical-aid
