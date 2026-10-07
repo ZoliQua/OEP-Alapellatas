@@ -169,6 +169,24 @@ Térkép  ·  Vármegye  ·  Település  ·  Elemző  ·  Nyilvántartás  ·  
 
 ---
 
+## 6/b. Ami ebből elkészült (2026-10-07)
+
+Mind az öt fázis. Amiben a megvalósítás eltér a fenti tervtől:
+
+- A **statisztikai szekciók** nem a vármegyei lapra kerültek, mert országos
+  elemzések: a vármegyei rangsor a `megye.html`-re ment (az a vármegye-szint),
+  az országos trendek, a Háziorvos vs Fogorvos összevetés és a légvonalbeli
+  távolság pedig az Elemzőre, a többi elemzés mellé. A főoldalon így tényleg
+  csak a kérdés maradt: hero, térkép, „Nálam".
+- A **menü hét pontos** lett hat helyett: a Módszertan önálló pont, mert egy
+  nyilvános adatokra épülő oldalon a forrás nem almenübe való.
+- A vármegyei laphoz új ETL-lépés készült (`etl/county_profiles.py` →
+  `data/counties.json`, 265 KB): ugyanaz az adat vármegyére szeletelve, mert
+  a 3,9 MB-os településprofil-fájlt nem lehet egy böngészőre bízni.
+- A **modális táblák** állapota nem a hash-be, hanem a query stringbe került
+  (`?tabla=…&tq=…`), mert a hash a szekcióhorgonyoké, és a kettő összeakadt
+  volna.
+
 ## 7. Végrehajtási sorrend
 
 A sorrend szándékosan olyan, hogy **minden fázis után működő, jobb oldal**
