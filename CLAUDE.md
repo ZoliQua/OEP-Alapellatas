@@ -148,6 +148,11 @@ the registry means `dissolved`, never silently dropped or counted as filled.
 - Monthly pipeline: `.github/workflows/monthly-etl.yml` (cron, runs twice
   monthly). On validation failure it opens an issue instead of deploying.
 - Local run: `python etl/run.py --month 2026-08` then `cd web && npm run dev`.
+- The street-level map on the settlement pages needs a tile provider. The
+  style URL lives in the `VITE_MAP_STYLE` environment variable (Vercel
+  project settings); without it the map is not built and not offered, and
+  everything else works unchanged. MapTiler/Stadia keys are domain-restricted;
+  a self-hosted Protomaps file would need no key at all.
 - Deploy: **Vercel**, through its GitHub integration — every push to `main`
   builds `web/` and goes live on https://oep-ellatas.vercel.app in a minute
   or two. `npm run build` runs `scripts/sync-data.mjs` first, so the JSON in
