@@ -94,6 +94,14 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
   matching the dark holadelej-style theme.
 - Geocoding: Nominatim, 1 req/s, results cached in `etl/geocode_cache.json`
   (git-tracked). Only query addresses not in cache.
+- Addresses: the registry is typed by hand and spells one surgery several
+  ways. `etl/address.py` gives each one spelling — tidying (capitals, street
+  type, house number) is separate from merging (same place, one label), both
+  registries are resolved in one pass, and the entry keeps the registry's own
+  wording in `addressRaw`. Decisions are pinned in `etl/address_cache.json`
+  (git-tracked, like the geocode cache) so a monthly run only resolves what is
+  new; `etl/address_overrides.json` holds corrections by hand.
+  `python etl/address.py --report` shows what the current data would become.
 
 ## Data sources (canonical list — do not invent others)
 
