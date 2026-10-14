@@ -76,7 +76,10 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
   provider for good) and `settlements.json` + `settlement_slugs.json` (the
   analyses turned inside out, one profile per settlement, which the build
   bakes into a static page each). `data/geo/settlements.geojson` carries a
-  centre point per settlement.
+  centre point per settlement. `counties.json` and `districts.json` are the
+  same profiles sliced one level up — twenty counties and the 197 járás
+  (174 + the capital's 23 kerület) — so a browser never downloads 3177 towns
+  to look at one of them.
 - Not in git, reproducible from their URL and date: the OSM extract under
   `data/raw/osm/`, the GTFS zip under `data/raw/gtfs/` and the derived
   `data/geo/road_graph.npz`.
@@ -86,9 +89,10 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
   `python etl/pipeline.py --check` fails the workflow if anything failed or
   was skipped. A failure must be loud, never silent.
 - Pages: `index.html` (landing, with the health-visitor view behind its own
-  icon and a grouped top nav), `elemzo.html` (the analyses), `eeszt.html`
-  (the EESZT complex), `szakellato.html` (specialist care and medical-aid
-  retailers), `embed.html`.
+  icon and a grouped top nav), `megye.html` (county), `jaras.html` (járás),
+  `elemzo.html` (the analyses), `eeszt.html` (the EESZT complex),
+  `szakellato.html` (specialist care and medical-aid retailers), `embed.html`.
+  The zoom levels run country → megye → járás → település.
 - Frontend: React 18 + Vite + TypeScript in `web/`, Zustand for state,
   MapLibre GL JS for the map, D3 for charts. No Tailwind; hand-rolled CSS
   matching the dark holadelej-style theme.
