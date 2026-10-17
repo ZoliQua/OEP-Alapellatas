@@ -79,7 +79,8 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
   centre point per settlement. `counties.json` and `districts.json` are the
   same profiles sliced one level up — twenty counties and the 197 járás
   (174 + the capital's 23 kerület) — so a browser never downloads 3177 towns
-  to look at one of them.
+  to look at one of them. `district_development.json` carries the state's own
+  development ranking of the járás (source L).
 - Not in git, reproducible from their URL and date: the OSM extract under
   `data/raw/osm/`, the GTFS zip under `data/raw/gtfs/` and the derived
   `data/geo/road_graph.npz`.
@@ -123,6 +124,7 @@ dissolved (megszűnt) list for GP; the GP registry is the source of district
 | I | NEAK fekvő- és járóbeteg-szakellátó intézmények (XLSX only — the outpatient PDF is truncated) | XLSX | monthly |
 | J | OpenStreetMap Hungary extract (Geofabrik, ODbL) — the drivable road graph | PBF | on demand |
 | K | Volánbusz national GTFS (MÁV Sz. Zrt. via gtfs.kti.hu, CC0) — scheduled buses; MÁV rail is registration-only and therefore absent | ZIP | monthly |
+| L | 290/2014. (XI. 26.) Korm. rendelet — the járás development ranking (komplex mutató, 2014) and 105/2015. (IV. 23.) Korm. rendelet — the lagging settlements, both from njt.hu | HTML | on demand |
 
 Source URLs are configured in `etl/sources.py` — update there only.
 NEAK data is "tájékoztató jellegű"; this disclaimer must appear in the UI footer.
